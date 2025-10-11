@@ -1,2 +1,2 @@
-# dHEALTH-obs
-For to store observations in the rotation stage of the dHEALTH program
+# dHEALTH-observations
+App to store observations for the dHEALTH hospital rotation
