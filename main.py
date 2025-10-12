@@ -1,4 +1,8 @@
-# gsheets-app.py
+# Copyright (c) Mercè Martín
+# All rights reserved.
+# This software is proprietary and confidential and may not under
+# any circumstances be used, copied, or distributed.
+
 from __future__ import annotations
 
 
@@ -6,6 +10,26 @@ import streamlit as st
 import pandas as pd
 from datetime import datetime
 from streamlit_gsheets import GSheetsConnection
+
+
+STUDENTS = ["Anna", "Eduard", "Mercè", "Miquel"]
+WHAT = [None, "Procedure", "Start", "End", "Enters", "Exists"]
+WHO = [None, "Patient", "Doctor", "Nurse", "Technician", "Porter", "Assistant", "Other"]
+MAX_OBSERVATIONS = 25
+
+
+st.markdown(
+        """
+    <style>
+        div[role=radiogroup] label:first-of-type {
+            visibility: hidden;
+            height: 0px;
+        }
+    </style>
+    """,
+        unsafe_allow_html=True,
+    )
+
 
 def gs_append(
     self,
@@ -39,22 +63,26 @@ temp_df = conn.read(
     ttl="1s"
 )
 
+if "student" not in st.session_state:
+    st.session_state.student = 0
 
 with st.form("Add observation", clear_on_submit=True):
     col_observation, col_student = st.columns([80, 20])
     with col_observation:
         observation = st.text_input("Observation", placeholder="Write your observation")
     with col_student:
-        student = st.selectbox("Student", ["Anna", "Eduard", "Mercè", "Miquel"])
-    col_what, col_who = st.columns([50, 50])
+        student = st.selectbox("Student", STUDENTS, index=st.session_state.student)
+    col_what, col_who, col_submit = st.columns([40, 40, 20])
     with col_what:
-        what = st.radio("What?", ["Procedure", "Start", "End", "Enters", "Exists"])
+        what = st.radio("What?", WHAT)
     with col_who:
-        who = st.radio("Who?", ["Patient", "Doctor", "Nurse", "Technician", "Porter", "Assistant", "Other"])
-    submit = st.form_submit_button("Save")
+        who = st.radio("Who?", WHO)
+    with col_submit:
+        submit = st.form_submit_button("Save")
 
     if submit:
-        new_data = pd.DataFrame([{"date": datetime.now().strftime("%Y-%m-%d %H:%M:%S"), 
+        st.session_state.student = STUDENTS.index(student)
+        new_data = pd.DataFrame([{"date": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                                   "what": what,
                                   "who": who,
                                   "observation": observation,
@@ -66,5 +94,10 @@ with st.form("Add observation", clear_on_submit=True):
                 )
         temp_df = pd.concat([temp_df, data], ignore_index=True)
 
-st.write(temp_df.iloc[::-1])
+col1, col2 = st.columns([50, 50])
+with col1:
+    st.write("Total number of observations:", len(temp_df))
+with col2:
+    st.write("Showing last", min([len(temp_df), MAX_OBSERVATIONS]))
+st.write(temp_df.iloc[::-1][0: MAX_OBSERVATIONS])
 
