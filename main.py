@@ -13,7 +13,7 @@ from streamlit_gsheets import GSheetsConnection
 
 
 STUDENTS = ["Anna", "Eduard", "Mercè", "Miquel"]
-WHAT = [None, "Procedure", "Start", "End", "Enters", "Exists"]
+WHAT = [None, "Procedure", "Incident", "Complication", "Start", "End", "Enters", "Exits"]
 WHO = [None, "Patient", "Doctor", "Nurse", "Technician", "Porter", "Assistant", "Other"]
 MAX_OBSERVATIONS = 25
 
