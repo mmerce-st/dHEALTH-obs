@@ -66,7 +66,7 @@ temp_df = conn.read(
 if "student" not in st.session_state:
     st.session_state.student = 0
 
-st.markdown("### Observations")
+st.markdown("### Observations.")
 
 with st.form("Add observation", clear_on_submit=True):
     col_observation, col_student = st.columns([80, 20])
