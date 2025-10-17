@@ -50,6 +50,7 @@ def gs_append(
     worksheet_id = self._instance._select_worksheet(spreadsheet=spreadsheet, folder_id=folder_id, worksheet=worksheet)
 
     if worksheet_id:
+        st.write(data.values.tolist())
         worksheet_id.append_rows(values=data.values.tolist(), value_input_option='USER_ENTERED')
 
     return data
