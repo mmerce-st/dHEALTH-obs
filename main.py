@@ -16,7 +16,7 @@ STUDENTS = ["Anna", "Eduard", "Mercè", "Miquel"]
 WHAT = [None, "Procedure", "Incident", "Complication", "Error", "Comment", "Question", "Suggestion"]
 WHO = [None, "Patient", "Doctor", "Nurse", "Technician", "Porter", "Assistant", "Other"]
 MAX_OBSERVATIONS = 25
-
+COLUMN_NAMES = ["date", "student", "what", "who", "observation"]
 
 st.markdown(
         """
@@ -50,7 +50,7 @@ def gs_append(
     worksheet_id = self._instance._select_worksheet(spreadsheet=spreadsheet, folder_id=folder_id, worksheet=worksheet)
 
     if worksheet_id:
-        st.write(data.values.tolist())
+        
         worksheet_id.append_rows(values=data.values.tolist(), value_input_option='USER_ENTERED')
 
     return data
@@ -90,6 +90,7 @@ with st.form("Add observation", clear_on_submit=True):
                                   "who": who,
                                   "observation": observation,
                                   "student": student}])
+        new_data = new_data.reindex(columns=COLUMN_NAMES)
         data = gs_append(
                     conn,
                     worksheet="Form",
