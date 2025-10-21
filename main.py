@@ -76,15 +76,14 @@ with st.form("Add observation", clear_on_submit=True):
     col_observation, col_student = st.columns([80, 20])
     with col_observation:
         observation = st.text_input("Observation", placeholder="Write your observation")
+    col_what, col_who, col_submit = st.columns([50, 50])
+        with col_what:
+            what = st.radio("What?", WHAT)
+        with col_who:
+            who = st.radio("Who?", WHO)
     with col_student:
         student = st.selectbox("Student", STUDENTS, index=st.session_state.student)
-        service = st.selectbox("Service", SERVICES, index=st.session_state.service)
-    col_what, col_who, col_submit = st.columns([40, 40, 20])
-    with col_what:
-        what = st.radio("What?", WHAT)
-    with col_who:
-        who = st.radio("Who?", WHO)
-    with col_submit:
+        service = st.selectbox("Area", SERVICES, index=st.session_state.service)
         submit = st.form_submit_button("Save")
 
     if submit:
