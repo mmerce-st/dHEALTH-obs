@@ -88,6 +88,7 @@ with st.form("Add observation", clear_on_submit=True):
 
     if submit:
         st.session_state.student = STUDENTS.index(student)
+        st.session_state.service = SERVICES.index(service)
         new_data = pd.DataFrame([{"date": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                                   "what": what,
                                   "who": who,
