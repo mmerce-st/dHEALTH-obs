@@ -76,7 +76,7 @@ with st.form("Add observation", clear_on_submit=True):
     col_observation, col_student = st.columns([80, 20])
     with col_observation:
         observation = st.text_input("Observation", placeholder="Write your observation")
-    col_what, col_who = st.columns([50, 50])
+        col_what, col_who = st.columns([50, 50])
         with col_what:
             what = st.radio("What?", WHAT)
         with col_who:
