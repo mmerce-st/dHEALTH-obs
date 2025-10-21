@@ -16,7 +16,7 @@ STUDENTS = ["Anna", "Eduard", "Mercè", "Miquel"]
 WHAT = [None, "Procedure", "Incident", "Complication", "Error", "Comment", "Question", "Suggestion"]
 WHO = [None, "Patient", "Doctor", "Nurse", "Technician", "Porter", "Assistant", "Other"]
 MAX_OBSERVATIONS = 25
-COLUMN_NAMES = ["date", "student", "what", "who", "observation"]
+COLUMN_NAMES = ["date", "student", "what", "who", "observation", "area"]
 SERVICES = ["Broncoscòpies", "Asma", "Proves fx resp", "Planta", "UPRC", "MPID", "Unitat de son",  "Altres"]
 
 st.markdown(
