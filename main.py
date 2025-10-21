@@ -93,7 +93,7 @@ with st.form("Add observation", clear_on_submit=True):
                                   "who": who,
                                   "observation": observation,
                                   "student": student,
-                                  "area": area}])
+                                  "area": service}])
         new_data = new_data.reindex(columns=COLUMN_NAMES)
         data = gs_append(
                     conn,
