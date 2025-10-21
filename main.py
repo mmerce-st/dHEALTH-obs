@@ -68,7 +68,7 @@ temp_df = conn.read(
 if "student" not in st.session_state:
     st.session_state.student = 0
 if "service" not in st.session_state:
-    st.session_state.session = 0
+    st.session_state.service = 0
 
 st.markdown("### Observations")
 
