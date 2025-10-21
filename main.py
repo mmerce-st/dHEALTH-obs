@@ -17,6 +17,7 @@ WHAT = [None, "Procedure", "Incident", "Complication", "Error", "Comment", "Ques
 WHO = [None, "Patient", "Doctor", "Nurse", "Technician", "Porter", "Assistant", "Other"]
 MAX_OBSERVATIONS = 25
 COLUMN_NAMES = ["date", "student", "what", "who", "observation"]
+SERVICES = ["Broncoscòpies", "Asma", "Proves fx resp", "Planta", "UPRC", "MPID", "Unitat de son",  "Altres"]
 
 st.markdown(
         """
@@ -66,6 +67,8 @@ temp_df = conn.read(
 
 if "student" not in st.session_state:
     st.session_state.student = 0
+if "service" not in st.session_state:
+    st.session_state.session = 0
 
 st.markdown("### Observations")
 
@@ -75,6 +78,7 @@ with st.form("Add observation", clear_on_submit=True):
         observation = st.text_input("Observation", placeholder="Write your observation")
     with col_student:
         student = st.selectbox("Student", STUDENTS, index=st.session_state.student)
+        service = st.selectbox("Service", SERVICES, index=st.session_state.service)
     col_what, col_who, col_submit = st.columns([40, 40, 20])
     with col_what:
         what = st.radio("What?", WHAT)
@@ -89,7 +93,8 @@ with st.form("Add observation", clear_on_submit=True):
                                   "what": what,
                                   "who": who,
                                   "observation": observation,
-                                  "student": student}])
+                                  "student": student,
+                                  "area": area}])
         new_data = new_data.reindex(columns=COLUMN_NAMES)
         data = gs_append(
                     conn,
